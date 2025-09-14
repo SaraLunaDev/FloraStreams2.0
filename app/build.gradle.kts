@@ -61,4 +61,7 @@ dependencies {
     // Dependencias necesarias para poder hacer peticiones HTTP y parsear JSONs
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Dependencia para actualizar la lista arrastrando hacia abajo
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

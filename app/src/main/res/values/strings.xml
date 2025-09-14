@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">flora_streams</string>
+    <string name="loading_lists">Cargando Listas…</string>
 </resources>
