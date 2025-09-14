@@ -12,6 +12,7 @@ import com.example.flora_streams.R
 import com.example.flora_streams.files.Subcategory
 import androidx.core.net.toUri
 import com.example.flora_streams.files.openAceStream
+import com.google.android.material.button.MaterialButton
 
 class SubcategoryAdapter(private val subcategories: List<Subcategory>) :
     RecyclerView.Adapter<SubcategoryAdapter.SubcategoryViewHolder>() {
@@ -39,12 +40,14 @@ class SubcategoryAdapter(private val subcategories: List<Subcategory>) :
         holder.llUrls.removeAllViews()
 
         subcategory.urls.forEach { url ->
-            val button = Button(holder.view.context).apply {
-                text = url.name
-                setOnClickListener {
-                    openAceStream(holder.view.context, url.url)
-                }
+            val button = LayoutInflater.from(holder.view.context)
+                .inflate(R.layout.item_url_button, holder.llUrls, false) as MaterialButton
+
+            button.text = url.name
+            button.setOnClickListener {
+                openAceStream(holder.view.context, url.url)
             }
+
             holder.llUrls.addView(button)
         }
 

@@ -9,8 +9,12 @@
         android:id="@+id/tvCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="@color/teal_700"
+        android:padding="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

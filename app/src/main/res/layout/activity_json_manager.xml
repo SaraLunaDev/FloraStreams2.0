@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topBarManager"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_700"
+        android:theme="?attr/actionBarTheme"
+        android:title="@string/lists" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvJsonUrls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

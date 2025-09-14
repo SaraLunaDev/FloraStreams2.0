@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">flora_streams</string>
     <string name="loading_lists">Cargando Listas…</string>
+    <string name="add_json">Añadir Lista</string>
+    <string name="lists">Listas</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="list_name">Nombre de la lista</string>
+    <string name="json_url">URL de la lista (JSON)</string>
+    <string name="edit_json">Editar Lista</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="no_lists">No hay listas disponibles...</string>
 </resources>
