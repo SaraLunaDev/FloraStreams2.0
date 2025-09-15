@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flora_streams.R
 import com.example.flora_streams.files.Subcategory
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.example.flora_streams.files.openAceStream
 import com.google.android.material.button.MaterialButton
 
@@ -20,6 +22,7 @@ class SubcategoryAdapter(private val subcategories: List<Subcategory>) :
     inner class SubcategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val tvSubcategoryName: TextView = view.findViewById(R.id.tvSubcategoryName)
         val llUrls: LinearLayout = view.findViewById(R.id.llUrls)
+        val ivIcon: ImageView = view.findViewById(R.id.ivSubcategoryIcon)
     }
 
     override fun onCreateViewHolder(
@@ -36,6 +39,8 @@ class SubcategoryAdapter(private val subcategories: List<Subcategory>) :
     ) {
         val subcategory = subcategories[position]
         holder.tvSubcategoryName.text = subcategory.name
+
+        Glide.with(holder.view.context).load(subcategory.icon).into(holder.ivIcon)
 
         holder.llUrls.removeAllViews()
 

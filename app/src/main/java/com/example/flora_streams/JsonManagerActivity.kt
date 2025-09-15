@@ -3,7 +3,9 @@ package com.example.flora_streams
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,32 +74,70 @@ class JsonManagerActivity : AppCompatActivity() {
 
     private fun showAddDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_add_edit_json, null)
+
+        val tvDialogTitle = view.findViewById<TextView>(R.id.tvDialogTitle)
         val etName = view.findViewById<EditText>(R.id.etName)
         val etUrl = view.findViewById<EditText>(R.id.etUrl)
+        val btnSave = view.findViewById<Button>(R.id.btnSave)
+        val btnCancel = view.findViewById<Button>(R.id.btnCancel)
 
-        AlertDialog.Builder(this).setTitle(R.string.add_json).setView(view).setPositiveButton(R.string.save) { _, _ ->
+        tvDialogTitle.setText(R.string.add_json)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(view)
+            .create()
+
+        btnSave.setOnClickListener {
             val name = etName.text.toString()
             val url = etUrl.text.toString()
-            if (name.isNotBlank() && url.isNotBlank()) addJsonUrl(name, url)
+            if (name.isNotBlank() && url.isNotBlank()) {
+                addJsonUrl(name, url)
+                dialog.dismiss()
+            }
         }
-            .setNegativeButton(R.string.cancel, null).show()
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
 
     private fun showEditDialog(item: JsonUrlEntity) {
         val view = layoutInflater.inflate(R.layout.dialog_add_edit_json, null)
+
+        val tvDialogTitle = view.findViewById<TextView>(R.id.tvDialogTitle)
         val etName = view.findViewById<EditText>(R.id.etName)
         val etUrl = view.findViewById<EditText>(R.id.etUrl)
+        val btnSave = view.findViewById<Button>(R.id.btnSave)
+        val btnCancel = view.findViewById<Button>(R.id.btnCancel)
 
+        tvDialogTitle.setText(R.string.edit_json)
         etName.setText(item.name)
         etUrl.setText(item.url)
 
-        AlertDialog.Builder(this).setTitle(R.string.edit_json).setView(view).setPositiveButton(R.string.save) { _, _ ->
+        val dialog = AlertDialog.Builder(this)
+            .setView(view)
+            .create()
+
+        btnSave.setOnClickListener {
             val name = etName.text.toString()
             val url = etUrl.text.toString()
-            if (name.isNotBlank() && url.isNotBlank()) updateJsonUrl(item.copy(name = name, url = url))
+            if (name.isNotBlank() && url.isNotBlank()) {
+                updateJsonUrl(item.copy(name = name, url = url))
+                dialog.dismiss()
+            }
         }
-            .setNegativeButton(R.string.cancel, null).show()
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
+
 
     private fun addJsonUrl(name: String, url: String) {
         CoroutineScope(Dispatchers.IO).launch {

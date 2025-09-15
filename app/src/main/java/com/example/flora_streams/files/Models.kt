@@ -7,6 +7,7 @@ data class Url(
 
 data class Subcategory(
     val name: String,
+    val icon: String,
     val urls: List<Url>
 )
 

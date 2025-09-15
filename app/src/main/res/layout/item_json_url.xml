@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/dialog_holo_dark_frame"
-    android:backgroundTint="@color/teal_700"
+    android:layout_margin="12dp"
+    android:background="@android:drawable/editbox_background"
+    android:backgroundTint="@color/color_4"
     android:orientation="horizontal"
     android:padding="20dp">
 
@@ -12,9 +13,10 @@
         android:id="@+id/tvJsonName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
         android:layout_weight="1"
         android:textAlignment="viewStart"
-        android:textColor="@color/white"
+        android:textColor="@color/color_1"
         android:textSize="24sp"
         android:textStyle="bold" />
 
