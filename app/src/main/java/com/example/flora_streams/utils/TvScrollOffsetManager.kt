@@ -12,8 +12,8 @@ class TvScrollOffsetManager(
 ) {
     
     companion object {
-        private const val SCROLL_OFFSET_TOP_DP = 25
-        private const val SCROLL_OFFSET_BOTTOM_DP = 25
+        private const val SCROLL_OFFSET_TOP_DP = 20
+        private const val SCROLL_OFFSET_BOTTOM_DP = 20
     }
     
     private val scrollOffsetTopPx: Int
