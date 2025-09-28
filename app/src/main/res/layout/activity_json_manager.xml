@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_6"
-    android:orientation="vertical">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBarManager"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_5"
-        android:theme="?attr/actionBarTheme"
-        android:title="@string/lists" />
+    android:orientation="vertical"
+    android:paddingTop="30dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJsonUrls"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddList"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/color_3"
+        android:fontFamily="sans-serif-medium"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:textColor="@color/color_1"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:icon="@android:drawable/stat_sys_upload"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp" />
 </LinearLayout>

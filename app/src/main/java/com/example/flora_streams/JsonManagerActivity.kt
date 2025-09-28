@@ -14,6 +14,7 @@ import com.example.flora_streams.adapter.JsonUrlAdapter
 import com.example.flora_streams.data.FloraDatabase
 import com.example.flora_streams.data.JsonUrlEntity
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,15 +24,11 @@ class JsonManagerActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: JsonUrlAdapter
     private lateinit var db: FloraDatabase
+    private lateinit var btnAddList: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_json_manager)
-
-        val topBarManager: MaterialToolbar = findViewById(R.id.topBarManager)
-        setSupportActionBar(topBarManager)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        topBarManager.setNavigationOnClickListener { finish() }
 
         db = FloraDatabase.getDatabase(this)
 
@@ -42,26 +39,10 @@ class JsonManagerActivity : AppCompatActivity() {
 
         loadUrls()
 
-        topBarManager.setOnMenuItemClickListener {
-            if (it.itemId == R.id.action_json_list) {
-                showAddDialog()
-                true
-            } else false
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.json_manager_menu,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_json_list -> {
-                showAddDialog()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        btnAddList = findViewById(R.id.btnAddList)
+        btnAddList.setOnClickListener {
+            showAddDialog()
+            true
         }
     }
 

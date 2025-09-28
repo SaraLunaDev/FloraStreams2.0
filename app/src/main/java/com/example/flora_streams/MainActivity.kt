@@ -2,14 +2,11 @@ package com.example.flora_streams
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.KeyEvent
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -18,14 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.flora_streams.adapter.CategoryAdapter
 import com.example.flora_streams.data.FloraDatabase
-import com.example.flora_streams.files.Category
-import com.google.android.material.appbar.MaterialToolbar
+import com.example.flora_streams.utils.TvScrollOffsetManager
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -37,7 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: LinearLayout
     private lateinit var tvEmpty: TextView
     private lateinit var db: FloraDatabase
+    private lateinit var btnOpenList: MaterialButton
     private lateinit var reloadJsonLauncher: ActivityResultLauncher<Intent>
+    private lateinit var tvScrollOffsetManager: TvScrollOffsetManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +44,29 @@ class MainActivity : AppCompatActivity() {
         rvCategories = findViewById(R.id.rvCategories)
         progressBar = findViewById(R.id.progressBar)
 
-        rvCategories.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvCategories.layoutManager = layoutManager
+
+        tvScrollOffsetManager = TvScrollOffsetManager(this, rvCategories)
+        tvScrollOffsetManager.setupTvScrollOffset()
+
+        rvCategories.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    btnOpenList.animate().translationY(0f).setDuration(100).setStartDelay(250).setInterpolator(
+                        AccelerateDecelerateInterpolator()).withStartAction {
+                        btnOpenList.visibility = View.VISIBLE
+                    }.start()
+                } else {
+                    btnOpenList.animate().translationY(btnOpenList.height.toFloat()).setDuration(100).setStartDelay(250).setInterpolator(
+                        AccelerateDecelerateInterpolator()).withEndAction {
+                        btnOpenList.visibility = View.GONE
+                    }.start()
+                }
+            }
+        })
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://ejemplo.com/")
@@ -63,8 +82,12 @@ class MainActivity : AppCompatActivity() {
             loadData(isSwipe = false)
         }
 
-        val topBar: MaterialToolbar = findViewById(R.id.topBar)
-        setSupportActionBar(topBar)
+        btnOpenList = findViewById(R.id.btnRefresh)
+        btnOpenList.setOnClickListener {
+            val intent = Intent(this, JsonManagerActivity::class.java)
+            reloadJsonLauncher.launch(intent)
+            true
+        }
 
         tvEmpty = findViewById(R.id.tvEmpty)
         db = FloraDatabase.getDatabase(this)
@@ -72,24 +95,11 @@ class MainActivity : AppCompatActivity() {
         loadData(false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.action_json_list -> {
-                val intent = Intent(this, JsonManagerActivity::class.java)
-                reloadJsonLauncher.launch(intent)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun loadData(isSwipe: Boolean) {
-        if (!isSwipe) progressBar.visibility = View.VISIBLE
+        if (!isSwipe) {
+            progressBar.visibility = View.VISIBLE
+            tvEmpty.visibility = View.GONE
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             val urls = db.jsonUrlDao().getAll()
@@ -100,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                     swipeRefresh.isRefreshing = false
                     tvEmpty.visibility = View.VISIBLE
                     rvCategories.visibility = View.GONE
+                    btnOpenList.visibility = View.VISIBLE
                 }
             } else {
                 val firstUrl = urls.first()
@@ -118,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                             tvEmpty.visibility = View.GONE
                             rvCategories.visibility = View.VISIBLE
                             rvCategories.adapter = CategoryAdapter(lista)
+                            tvScrollOffsetManager.onDataLoaded()
                         }
                     }
 
