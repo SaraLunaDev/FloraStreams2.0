@@ -37,4 +37,5 @@ Aplicación Android para leer JSONs y mostrar su contenido de forma estructurada
 4. Navega por las categorías y toca cualquier stream para reproducirlo
 
 ## Requisitos
-- AceStream
+- Android 7.0+
+- AceStream instalado
