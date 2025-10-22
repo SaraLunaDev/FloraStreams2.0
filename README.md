@@ -10,11 +10,18 @@ Aplicación Android para leer JSONs y mostrar su contenido de forma estructurada
 
 ## Capturas de Pantalla
 
-### Pantalla Principal
-![Main Screen](screenshots/main-screen.png)
-
-### Gestión de Listas JSON
-![JSON Manager](screenshots/json-manager.png)
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="screenshots/main-screen.png" alt="Pantalla Principal" width="350"/></td>
+      <td><img src="screenshots/json-manager.png" alt="Gestión de Listas" width="350"/></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Pantalla Principal</b></td>
+      <td align="center"><b>Gestión de Listas</b></td>
+    </tr>
+  </table>
+</div>
 
 ## Formato JSON
 
