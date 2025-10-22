@@ -8,6 +8,14 @@ Aplicación Android para leer JSONs y mostrar su contenido de forma estructurada
 - Soporte Android TV
 - Interfaz por categorías
 
+## Capturas de Pantalla
+
+### Pantalla Principal
+![Main Screen](screenshots/main-screen.png)
+
+### Gestión de Listas JSON
+![JSON Manager](screenshots/json-manager.png)
+
 ## Formato JSON
 
 ```json
@@ -21,7 +29,7 @@ Aplicación Android para leer JSONs y mostrar su contenido de forma estructurada
         "urls": [
           {
             "name": "Full HD",
-            "url": "acestream://hash-del-stream"
+            "url": "acestream://id-del-stream"
           }
         ]
       }
