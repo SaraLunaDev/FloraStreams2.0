@@ -34,8 +34,7 @@ Aplicación Android para leer JSONs y mostrar su contenido de forma estructurada
 1. Abre la app
 2. Toca el botón "+" para añadir una lista JSON
 3. Introduce la URL del JSON
-4. Navega por las categorías y toca cualquier stream
+4. Navega por las categorías y toca cualquier stream para reproducirlo
 
 ## Requisitos
-- Android 7.0+
-- Permiso de INTERNET
+- AceStream
